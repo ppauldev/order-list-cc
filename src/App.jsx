@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
 
 
@@ -185,9 +185,20 @@ const data = [
       }
     ],
   }
-]
+];
+
+const fetchData = () => data;
 
 const App = () => {
+  const [columnData, setColumnData] = useState([]);
+  const [rowData, setRowData] = useState([]);
+
+  useEffect(() => {
+    const data = fetchData();
+
+    setRowData(data);
+  }, []);
+
   return (
     <div>
       <Table />
