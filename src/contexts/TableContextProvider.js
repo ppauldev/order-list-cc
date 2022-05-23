@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 
 import { fetchData } from '../api/demodata';
-import { parseColumnNames, parseData } from '../helper/helper';
+import { customSortData, parseColumnNames, parseData } from '../helper/helper';
 
 const ColumnContext = React.createContext();
 const RowContext = React.createContext();
@@ -13,10 +13,11 @@ export const TableContextProvider = ({ children }) => {
   useEffect(() => {
     const data = fetchData();
     const parsedData = parseData(data);
-    const columns = parseColumnNames(parsedData);
+    const sortedData = customSortData(parsedData);
+    const columns = parseColumnNames(sortedData);
 
     setColumnData(columns);
-    setRowData(parsedData);
+    setRowData(sortedData);
   }, []);
 
   return (
