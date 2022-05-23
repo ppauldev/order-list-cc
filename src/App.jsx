@@ -197,6 +197,7 @@ const TableContextProvider = ({ children }) => {
   const [rowData, setRowData] = useState([]);
 
   useEffect(() => {
+    console.log("mount provider");
     const data = fetchData();
 
     setRowData(data);
@@ -212,11 +213,11 @@ const TableContextProvider = ({ children }) => {
 };
 
 const App = () => {
-
-
   return (
     <div>
-      <Table />
+      <TableContextProvider>
+        <Table />
+      </TableContextProvider>
     </div>
   )
 };
