@@ -191,6 +191,34 @@ const data = [
   }
 ];
 
+const columnLabels = {
+  firstName: {
+    de: "Vorname",
+  },
+  lastName: {
+    de: "Nachname",
+  },
+  orderNumber: {
+    de: "Bestellung",
+  },
+  description: {
+    de: "Artikelbeschreibung",
+  },
+  price: {
+    de: "Preis",
+  }
+};
+
+const getColumnLabel = (column) => {
+  const DEFAULT_LANG = "de";
+  const DEFAULT_COLUMN_NOT_FOUND = "n/a";
+
+  const columnInfo = column in columnLabels ? columnLabels[column] : null;
+  if (!columnInfo) return DEFAULT_COLUMN_NOT_FOUND;
+
+  const columnName = DEFAULT_LANG in columnInfo ? columnInfo[DEFAULT_LANG] : DEFAULT_COLUMN_NOT_FOUND;
+  return columnName;
+};
 const fetchData = () => data;
 const parseColumnNames = (data) => {
   if (!data || data.length === 0) return [];
@@ -269,7 +297,7 @@ const TableHeader = () => {
   return (
     <thead>
       <tr>
-        {columns.map((column, i) => <th key={i}>{column}</th>)}
+        {columns.map((column, i) => <th key={i}>{getColumnLabel(column)}</th>)}
       </tr>
     </thead>
   )
