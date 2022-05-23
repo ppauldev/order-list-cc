@@ -184,13 +184,43 @@ const data = [
         ]
       }
     ],
-  }]
+  }
+]
 
 const App = () => {
   return (
     <div>
-      Add your solution here
+      <Table />
     </div>
+  )
+};
+
+const Table = () => {
+  return (
+    <table>
+      <TableHeader />
+      <TableBody />
+    </table>
+  )
+};
+
+const TableHeader = () => {
+  return (
+    <thead>
+      <tr>
+        <th>Test</th>
+      </tr>
+    </thead>
+  )
+};
+
+const TableBody = () => {
+  return (
+    <tbody>
+      <tr>
+        Entry
+      </tr>
+    </tbody>
   )
 };
 
