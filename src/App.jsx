@@ -163,20 +163,12 @@ Max        | Mustermann | 1     | Chair            | 129,99 €
 
 */
 
+const App = () => {
+  return (
+    <div>
+      Add your solution here
+    </div>
+  )
+};
 
-
-
-export default class App extends Component {
-
-  state = {
-
-  }
-
-  render = () => {
-    return (
-      <div>
-        Add your solution here
-      </div>
-    )
-  }
-}
+export default App;
