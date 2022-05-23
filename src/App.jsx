@@ -167,27 +167,23 @@ const data = [
   {
     firstName: "Max",
     lastName: "Mustermann",
-    // orders: [
-    //   {
-    //     orderNumber: 1,
-    //     articles: [
-    //       {
-    //         description: "Schreibtisch",
-    //         priceUnit: 249.99,
-    //         currency: "€"
-    //       },
-    //       {
-    //         description: "Stuhl",
-    //         priceUnit: 129.99,
-    //         currency: "€"
-    //       }
-    //     ]
-    //   }
-    // ],
-  },
-  {
-    firstName: "Peter",
-    lastName: "Müller",
+    orders: [
+      {
+        orderNumber: 1,
+        articles: [
+          {
+            description: "Schreibtisch",
+            priceUnit: 249.99,
+            currency: "€"
+          },
+          {
+            description: "Stuhl",
+            priceUnit: 129.99,
+            currency: "€"
+          }
+        ]
+      }
+    ],
   }
 ];
 
@@ -225,6 +221,25 @@ const parseColumnNames = (data) => {
 
   return Object.keys(data[0]);
 };
+const parseData = (data) => {
+  const parsedData = data.flatMap((item) => {
+    const a = item.orders.flatMap((order) => {
+      const b = order.articles.map((article) => {
+        return {
+          firstName: item.firstName,
+          lastName: item.lastName,
+          orderNumber: order.orderNumber,
+          description: article.description,
+          price: `${article.priceUnit.toFixed(2)} ${article.currency}`
+        }
+      });
+      return b;
+    })
+    return a;
+  });
+
+  return parsedData;
+};
 
 const ColumnContext = React.createContext();
 const RowContext = React.createContext();
@@ -234,12 +249,12 @@ const TableContextProvider = ({ children }) => {
   const [rowData, setRowData] = useState([]);
 
   useEffect(() => {
-    console.log("mount provider");
     const data = fetchData();
-    const columns = parseColumnNames(data);
+    const parsedData = parseData(data);
+    const columns = parseColumnNames(parsedData);
 
     setColumnData(columns);
-    setRowData(data);
+    setRowData(parsedData);
   }, []);
 
   return (
@@ -292,7 +307,6 @@ const Table = () => {
 
 const TableHeader = () => {
   const columns = useColumnContext();
-  console.log("column data: ", columns);
 
   return (
     <thead>
@@ -305,7 +319,6 @@ const TableHeader = () => {
 
 const TableBody = () => {
   const rows = useRowContext();
-  console.log("row data: ", rows);
 
   return (
     <tbody>
