@@ -36,3 +36,12 @@ export const parseData = (data) => {
 
   return parsedData;
 };
+
+const sortStringAscending = (items, key) => {
+  return items.sort((a, b) => a[key].localeCompare(b[key]));
+};
+
+export const customSortData = (data) => {
+  const dataAscendingLastNames = sortStringAscending(data, "lastName");
+  return dataAscendingLastNames;
+};
