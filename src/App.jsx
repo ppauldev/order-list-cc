@@ -6,7 +6,7 @@ import { TableContextProvider, useColumnContext, useRowContext } from './context
 
 const App = () => {
   return (
-    <div>
+    <div className="app">
       <TableContextProvider>
         <Table />
       </TableContextProvider>
