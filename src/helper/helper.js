@@ -1,5 +1,32 @@
 import { columnLabels } from "../label/AppLabels";
 
+const customSortLastNameAscending = (data) => {
+  const copiedData = JSON.parse(JSON.stringify(data));
+  return copiedData.sort((a, b) => a.lastName.localeCompare(b.lastName));
+};
+
+const customSortOrderNumberAscending = (data) => {
+  const copiedData = JSON.parse(JSON.stringify(data));
+  return copiedData.sort((a, b) => {
+    return a.lastName === b.lastName ? a.orderNumber - b.orderNumber : null;
+  });
+};
+
+const customSortPriceDescending = (data) => {
+  const copiedData = JSON.parse(JSON.stringify(data));
+  return copiedData.sort((a, b) => {
+    return a.lastName === b.lastName && a.orderNumber === b.orderNumber ? getFloatFromEuroPrice(b.price) - getFloatFromEuroPrice(a.price) : null;
+  });
+};
+
+export const customSortData = (data) => {
+  const dataAscendingLastNames = customSortLastNameAscending(data);
+  const dataAscendingOrderNumber = customSortOrderNumberAscending(dataAscendingLastNames);
+  const dataDescendingPrice = customSortPriceDescending(dataAscendingOrderNumber);
+
+  return dataDescendingPrice;
+};
+
 export const getColumnLabel = (column) => {
   const DEFAULT_LANG = "de";
   const DEFAULT_COLUMN_NOT_FOUND = "n/a";
@@ -9,6 +36,10 @@ export const getColumnLabel = (column) => {
 
   const columnName = DEFAULT_LANG in columnInfo ? columnInfo[DEFAULT_LANG] : DEFAULT_COLUMN_NOT_FOUND;
   return columnName;
+};
+
+const getFloatFromEuroPrice = (priceLabel) => {
+  return parseFloat(priceLabel.replace("€", "").trim());
 };
 
 export const parseColumnNames = (data) => {
@@ -35,13 +66,4 @@ export const parseData = (data) => {
   });
 
   return parsedData;
-};
-
-const sortStringAscending = (items, key) => {
-  return items.sort((a, b) => a[key].localeCompare(b[key]));
-};
-
-export const customSortData = (data) => {
-  const dataAscendingLastNames = sortStringAscending(data, "lastName");
-  return dataAscendingLastNames;
 };
