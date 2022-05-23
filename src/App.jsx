@@ -45,12 +45,12 @@ const TableBody = () => {
   )
 };
 
-const TableRow = (rowProps) => {
+const TableRow = React.memo((rowProps) => {
   return (
     <tr>
       {Object.values(rowProps).map((value, i) => <td key={i}>{value}</td>)}
     </tr>
   )
-};
+});
 
 export default App;
