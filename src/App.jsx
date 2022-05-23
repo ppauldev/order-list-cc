@@ -184,10 +184,19 @@ const data = [
     //     ]
     //   }
     // ],
+  },
+  {
+    firstName: "Peter",
+    lastName: "Müller",
   }
 ];
 
 const fetchData = () => data;
+const parseColumnNames = (data) => {
+  if (!data || data.length === 0) return [];
+
+  return Object.keys(data[0]);
+};
 
 const ColumnContext = React.createContext();
 const RowContext = React.createContext();
@@ -199,7 +208,9 @@ const TableContextProvider = ({ children }) => {
   useEffect(() => {
     console.log("mount provider");
     const data = fetchData();
+    const columns = parseColumnNames(data);
 
+    setColumnData(columns);
     setRowData(data);
   }, []);
 
@@ -252,6 +263,9 @@ const Table = () => {
 };
 
 const TableHeader = () => {
+  const columns = useColumnContext();
+  console.log("column data: ", columns);
+
   return (
     <thead>
       <tr>
