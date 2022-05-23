@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './App.css'
 
 
@@ -212,6 +212,26 @@ const TableContextProvider = ({ children }) => {
   )
 };
 
+const useColumnContext = () => {
+  const context = useContext(ColumnContext);
+
+  if (context === undefined) {
+    throw new Error("useColumnContext was used outside of its Provider");
+  }
+
+  return context;
+};
+
+const useRowContext = () => {
+  const context = useContext(RowContext);
+
+  if (context === undefined) {
+    throw new Error("useRowContext was used outside of its Provider");
+  }
+
+  return context;
+};
+
 const App = () => {
   return (
     <div>
@@ -235,7 +255,8 @@ const TableHeader = () => {
   return (
     <thead>
       <tr>
-        <th>Test</th>
+        <th>First name</th>
+        <th>Last name</th>
       </tr>
     </thead>
   )
