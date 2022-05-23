@@ -163,6 +163,29 @@ Max        | Mustermann | 1     | Chair            | 129,99 €
 
 */
 
+const data = [
+  {
+    firstName: "Max",
+    lastName: "Mustermann",
+    orders: [
+      {
+        orderNumber: 1,
+        articles: [
+          {
+            description: "Schreibtisch",
+            priceUnit: 249.99,
+            currency: "€"
+          },
+          {
+            description: "Stuhl",
+            priceUnit: 129.99,
+            currency: "€"
+          }
+        ]
+      }
+    ],
+  }]
+
 const App = () => {
   return (
     <div>
