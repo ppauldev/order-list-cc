@@ -189,7 +189,10 @@ const data = [
 
 const fetchData = () => data;
 
-const App = () => {
+const ColumnContext = React.createContext();
+const RowContext = React.createContext();
+
+const TableContextProvider = ({ children }) => {
   const [columnData, setColumnData] = useState([]);
   const [rowData, setRowData] = useState([]);
 
@@ -198,6 +201,18 @@ const App = () => {
 
     setRowData(data);
   }, []);
+
+  return (
+    <ColumnContext.Provider value={columnData}>
+      <RowContext.Provider value={rowData}>
+        {children}
+      </RowContext.Provider>
+    </ColumnContext.Provider>
+  )
+};
+
+const App = () => {
+
 
   return (
     <div>
