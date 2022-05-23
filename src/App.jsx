@@ -269,8 +269,7 @@ const TableHeader = () => {
   return (
     <thead>
       <tr>
-        <th>First name</th>
-        <th>Last name</th>
+        {columns.map((column, i) => <th key={i}>{column}</th>)}
       </tr>
     </thead>
   )
@@ -279,6 +278,7 @@ const TableHeader = () => {
 const TableBody = () => {
   const rows = useRowContext();
   console.log("row data: ", rows);
+
   return (
     <tbody>
       {rows.map((row, i) => <TableRow key={i} {...row} />)}
