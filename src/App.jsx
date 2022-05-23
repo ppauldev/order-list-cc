@@ -167,23 +167,23 @@ const data = [
   {
     firstName: "Max",
     lastName: "Mustermann",
-    orders: [
-      {
-        orderNumber: 1,
-        articles: [
-          {
-            description: "Schreibtisch",
-            priceUnit: 249.99,
-            currency: "€"
-          },
-          {
-            description: "Stuhl",
-            priceUnit: 129.99,
-            currency: "€"
-          }
-        ]
-      }
-    ],
+    // orders: [
+    //   {
+    //     orderNumber: 1,
+    //     articles: [
+    //       {
+    //         description: "Schreibtisch",
+    //         priceUnit: 249.99,
+    //         currency: "€"
+    //       },
+    //       {
+    //         description: "Stuhl",
+    //         priceUnit: 129.99,
+    //         currency: "€"
+    //       }
+    //     ]
+    //   }
+    // ],
   }
 ];
 
@@ -263,12 +263,20 @@ const TableHeader = () => {
 };
 
 const TableBody = () => {
+  const rows = useRowContext();
+  console.log("row data: ", rows);
   return (
     <tbody>
-      <tr>
-        Entry
-      </tr>
+      {rows.map((row, i) => <TableRow key={i} {...row} />)}
     </tbody>
+  )
+};
+
+const TableRow = (rowProps) => {
+  return (
+    <tr>
+      {Object.values(rowProps).map((value, i) => <td key={i}>{value}</td>)}
+    </tr>
   )
 };
 
